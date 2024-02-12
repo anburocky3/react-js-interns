@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 
 const FormInput = ({
   name,
+  type = "text",
   label,
   placeholder,
-  value,
-  handleOnChange,
+  register,
+  error,
   required,
 }) => {
   return (
@@ -17,23 +18,25 @@ const FormInput = ({
       <input
         id={name}
         name={name}
-        type="text"
+        type={type}
         placeholder={placeholder}
-        value={value}
-        onChange={handleOnChange}
+        {...register}
         className="px-4 py-2 rounded bg-gray-200 block w-full outline-none"
-        required={required}
       />
+      {error && <small className="text-red-500">{error.message}</small>}
     </div>
   );
 };
 
 FormInput.propTypes = {
   name: PropTypes.string,
+  type: PropTypes.string,
   label: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
   handleOnChange: PropTypes.func,
+  register: PropTypes.object,
+  error: PropTypes.object,
   required: PropTypes.bool,
 };
 

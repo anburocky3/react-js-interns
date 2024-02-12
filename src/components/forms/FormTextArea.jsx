@@ -4,8 +4,8 @@ const FormTextArea = ({
   name,
   label,
   placeholder,
-  value,
-  handleOnChange,
+  register,
+  error,
   required,
 }) => {
   return (
@@ -18,11 +18,10 @@ const FormTextArea = ({
         id={name}
         name={name}
         placeholder={placeholder}
-        value={value}
-        onChange={handleOnChange}
+        {...register}
         className="px-4 py-2 rounded bg-gray-200 block w-full outline-none"
-        required={required}
       ></textarea>
+      {error && <small className="text-red-500">{error.message}</small>}
     </div>
   );
 };
@@ -30,9 +29,9 @@ const FormTextArea = ({
 FormTextArea.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
-  value: PropTypes.string,
   placeholder: PropTypes.string,
-  handleOnChange: PropTypes.func,
+  register: PropTypes.object,
+  error: PropTypes.object,
   required: PropTypes.bool,
 };
 

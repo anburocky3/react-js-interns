@@ -1,92 +1,72 @@
-import { useState } from "react";
-import FormButton from "../components/buttons/FormButton";
+import { useForm } from "react-hook-form";
 import FormInput from "../components/forms/FormInput";
 import FormTextArea from "../components/forms/FormTextArea";
 
 const ContactPage = () => {
-  const [form, setForm] = useState({
-    fullName: "",
-    emailAddress: "",
-    desc: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      fullName: "Anbuselvan",
+    },
   });
 
-  const [formError, setFormError] = useState({
-    fullName: null,
-    emailAddress: null,
-    desc: null,
-  });
-
-  const handleInputs = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "fullName") {
-      // do the fullName validation here.
-      if (value.length < 4) {
-        setFormError((prev) => ({
-          ...prev,
-          fullName: "FullName validation failed!",
-        }));
-      } else {
-        setFormError((prev) => ({
-          ...prev,
-          fullName: "",
-        }));
-      }
-    }
-
-    setForm((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  const submitFormToServer = (e) => {
-    e.preventDefault();
-
-    // Do the javascript validations!
-    console.log(form);
-    alert("Form submitted, successfully!");
+  const sendInfo = (data) => {
+    console.log("Sending this info to the server: ", data);
   };
 
   return (
     <div className="m-10">
       <div className="bg-white p-10 rounded">
         <h4 className="font-semibold text-xl">Contact Page!</h4>
+        <form className="my-5 space-y-4" onSubmit={handleSubmit(sendInfo)}>
+          <FormInput
+            name="fullName"
+            label="Full name"
+            placeholder="Enter your Full Name!"
+            register={register("fullName", {
+              required: "This field is required!",
+            })}
+            error={errors.fullName}
+            required
+          />
 
-        <form action="" onSubmit={submitFormToServer}>
-          <div className="space-y-4 my-5">
-            <FormInput
-              name="fullName"
-              label="Full name"
-              placeholder="Enter your full name"
-              value={form.fullName}
-              handleOnChange={handleInputs}
-            />
-            {formError.fullName ? (
-              <small className="text-red-500">{formError.fullName}</small>
-            ) : (
-              ""
-            )}
-            <FormInput
-              name="emailAddress"
-              label="Email Address"
-              placeholder="Enter your Email Address"
-              value={form.email}
-              handleOnChange={handleInputs}
-              required
-            />
-            <FormTextArea
-              name="desc"
-              label="Contact Description"
-              placeholder="Enter your description"
-              value={form.desc}
-              handleOnChange={handleInputs}
-              required
-            />
-          </div>
-          <div>
-            <FormButton text={"Save"} />
-          </div>
+          <FormInput
+            name="email"
+            label="Email Address"
+            placeholder="Enter your Email Address"
+            register={register("email", {
+              required: "This field is required!",
+            })}
+            error={errors.email}
+            required
+          />
+
+          <FormInput
+            name="subject"
+            label="Subject"
+            placeholder="Subject Title"
+            register={register("subject", {
+              required: "This field is required!",
+            })}
+            error={errors.subject}
+            required
+          />
+
+          <FormTextArea
+            name="description"
+            label="Description"
+            placeholder="Write description briefly!"
+            register={register("description", {
+              required: "This field is required!",
+            })}
+            error={errors.description}
+            required
+          />
+
+          <button className="px-4 py-2 rounded bg-yellow-500">Submit</button>
         </form>
       </div>
     </div>
