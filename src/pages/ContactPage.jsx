@@ -1,6 +1,15 @@
 import { useForm } from "react-hook-form";
 import FormInput from "../components/forms/FormInput";
 import FormTextArea from "../components/forms/FormTextArea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const formSchema = z.object({
+  fullName: z.string().min(3).max(20),
+  email: z.string().email(),
+  subject: z.string().min(10).max(120),
+  description: z.string().min(200).max(2000),
+});
 
 const ContactPage = () => {
   const {
@@ -8,9 +17,8 @@ const ContactPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      fullName: "Anbuselvan",
-    },
+    defaultValues: {},
+    resolver: zodResolver(formSchema),
   });
 
   const sendInfo = (data) => {
@@ -26,9 +34,7 @@ const ContactPage = () => {
             name="fullName"
             label="Full name"
             placeholder="Enter your Full Name!"
-            register={register("fullName", {
-              required: "This field is required!",
-            })}
+            register={register("fullName")}
             error={errors.fullName}
             required
           />
@@ -37,9 +43,7 @@ const ContactPage = () => {
             name="email"
             label="Email Address"
             placeholder="Enter your Email Address"
-            register={register("email", {
-              required: "This field is required!",
-            })}
+            register={register("email")}
             error={errors.email}
             required
           />
@@ -48,9 +52,7 @@ const ContactPage = () => {
             name="subject"
             label="Subject"
             placeholder="Subject Title"
-            register={register("subject", {
-              required: "This field is required!",
-            })}
+            register={register("subject")}
             error={errors.subject}
             required
           />
@@ -59,9 +61,7 @@ const ContactPage = () => {
             name="description"
             label="Description"
             placeholder="Write description briefly!"
-            register={register("description", {
-              required: "This field is required!",
-            })}
+            register={register("description")}
             error={errors.description}
             required
           />
