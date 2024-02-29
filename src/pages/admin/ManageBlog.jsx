@@ -1,18 +1,16 @@
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { BlogContext } from "../../contexts/BlogContext";
 
 const ManageBlog = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const { posts, setPost } = useContext(BlogContext);
+
+  console.log(posts, setPost);
 
   return (
     <div className="space-y-4">
       Products for Mr. {user.userName} user! <br />
-      <button
-        className="px-4 py-2 rounded bg-purple-500 hover:bg-purple-600 text-white"
-        onClick={() => setUser({ ...user, userName: "Abi" })}
-      >
-        Login with Abi
-      </button>
     </div>
   );
 };

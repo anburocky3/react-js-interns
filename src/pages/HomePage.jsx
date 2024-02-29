@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { BlogContext } from "../contexts/BlogContext";
 
 const HomePage = () => {
-  const [posts, setPosts] = useState([]);
+  const { posts, setPosts } = useContext(BlogContext);
 
   useEffect(() => {
     const fetchPosts = async () => {
