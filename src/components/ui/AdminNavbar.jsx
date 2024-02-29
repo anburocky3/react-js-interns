@@ -5,9 +5,7 @@ import { useContext } from "react";
 const AdminNavbar = () => {
   // useContext()
 
-  const user = useContext(UserContext);
-
-  console.log(user);
+  const { user } = useContext(UserContext);
 
   return (
     <div className="bg-lime-800 text-white px-10 py-5 flex items-center justify-between">

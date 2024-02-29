@@ -3,10 +3,9 @@ import AdminNavbar from "../components/ui/AdminNavbar";
 import AdminSidebar from "../components/ui/AdminSidebar";
 import { UserContext } from "../contexts/UserContext";
 import { useState } from "react";
-import DashboardPage from "../pages/admin/Dashboard";
 
 const AdminLayout = () => {
-  const [user] = useState({
+  const [user, setUser] = useState({
     userId: 1,
     userName: "Selvan",
     isLoggedIn: true,
@@ -14,7 +13,7 @@ const AdminLayout = () => {
 
   return (
     <div className="bg-gray-300 min-h-screen pb-10">
-      <UserContext.Provider value={user}>
+      <UserContext.Provider value={{ user, setUser }}>
         <AdminNavbar />
 
         <div className="flex m-5 space-x-10">
@@ -25,8 +24,6 @@ const AdminLayout = () => {
           <div className="w-3/4 bg-white p-10 rounded">
             <Outlet />
           </div>
-
-          <DashboardPage />
         </div>
       </UserContext.Provider>
     </div>
