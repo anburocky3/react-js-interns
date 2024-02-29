@@ -9,6 +9,7 @@ import ErrorPage from "./pages/Error.jsx";
 import FollowersPage from "./pages/FollowersPage.jsx";
 import AdminLayout from "./layouts/Admin.jsx";
 import DashboardPage from "./pages/admin/Dashboard.jsx";
+import ManageBlog from "./pages/admin/ManageBlog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,11 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminLayout />,
-    children: [{ path: "dashboard", element: <DashboardPage /> }],
+    children: [
+      { path: "", element: <DashboardPage /> },
+      { path: "dashboard", element: <DashboardPage /> },
+      { path: "blogs", element: <ManageBlog /> },
+    ],
   },
 ]);
 
